@@ -15,14 +15,18 @@ const io = socketIO(server, {
 
 const PORT = process.env.PORT || 3001;
 
+const playgroundSockets: { [playgroundId: string]: Socket[] } = {};
+
 io.on("connection", (socket: Socket) => {
   console.log(`Client ${socket.id} connected`);
 
   const { playgroundId } = socket.handshake.query;
+  console.log("New Playground Id Connection: ", playgroundId)
 
   socket.join(playgroundId!);
 
   socket.on("update", (data) => {
+    console.log("Received Update From Client: ", playgroundId)
     socket.broadcast.to(playgroundId!).emit("serverUpdate", { nodes: data.nodes, edges: data.edges });
   })
 
