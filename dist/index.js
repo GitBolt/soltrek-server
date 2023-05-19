@@ -1,0 +1,2 @@
+"use strict";var c=require("express"),t=require("http"),i=require("socket.io"),l=c(),r=t.createServer(l),d=i(r,{cors:{origin:"*"},autoConnect:!1}),s=process.env.PORT||3001;d.on("connection",e=>{console.log(`Client ${e.id} connected`);let{playgroundId:n}=e.handshake.query;e.join(n),e.on("update",o=>{console.log(o.edges),console.log(),e.broadcast.emit("serverUpdate",{nodes:o.nodes,edges:o.edges})}),e.on("disconnect",()=>{console.log(`Client ${e.id} disconnected`),e.leave(n)})});r.listen(s,()=>{console.log(`Server listening on port ${s}`)});
+//# sourceMappingURL=index.js.map
