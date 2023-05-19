@@ -3,9 +3,6 @@ import { Socket } from "socket.io";
 const express = require("express");
 const http = require("http");
 const socketIO = require("socket.io");
-const { PrismaClient } = require("@prisma/client");
-
-const prisma = new PrismaClient();
 
 const app = express();
 const server = http.createServer(app);
@@ -25,8 +22,10 @@ io.on("connection", (socket: Socket) => {
 
   socket.join(playgroundId!);
 
-  socket.on("update", (playground) => {
-    socket.broadcast.to(playgroundId!).emit("serverUpdate", { ...playground });
+  socket.on("update", (data) => {
+    console.log(data.edges)
+    console.log()
+    socket.broadcast.emit("serverUpdate", { nodes: data.nodes, edges: data.edges });
   })
 
   socket.on("disconnect", () => {
