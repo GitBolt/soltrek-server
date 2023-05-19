@@ -4,7 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts"
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "build": "tsup",
+    "start": "node dist/index.js",
+    "watch": "tsup --watch"
   },
   "dependencies": {
     "@prisma/client": "4.13.0",
@@ -17,6 +20,7 @@
     "prisma": "^4.13.0",
     "socket.io": "^4.6.1",
     "socket.io-client": "^4.6.1",
+    "tsup": "^6.7.0",
     "typescript": "^5.0.4"
   },
   "devDependencies": {
