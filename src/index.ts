@@ -23,9 +23,7 @@ io.on("connection", (socket: Socket) => {
   socket.join(playgroundId!);
 
   socket.on("update", (data) => {
-    console.log(data.edges)
-    console.log()
-    socket.broadcast.emit("serverUpdate", { nodes: data.nodes, edges: data.edges });
+    socket.broadcast.to(playgroundId!).emit("serverUpdate", { nodes: data.nodes, edges: data.edges });
   })
 
   socket.on("disconnect", () => {
